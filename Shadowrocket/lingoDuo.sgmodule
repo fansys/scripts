@@ -1,0 +1,11 @@
+#!name=lingoDuo
+#!desc=Duolingo iOS 会员字段改写；可选经验倍数、关卡解锁、挑战时长和直接通关
+#!author=TAKAGIVEGETA
+#!system=ios
+# 来源：https://github.com/TAKAGIVEGETA/MyScripts/tree/main/lingoDuo
+
+[Script]
+lingoDuo = type=http-response,pattern=^https:\/\/(ios-api-[a-z0-9-]+|api\d+|stories)\.duolingo\.(com|cn)\/(2023-05-23\/(batch|users\/[^/?#]+)|([^/?#]+\/)*live-ops-challenges|([^/?#]+\/)*sessions|api2\/stories)(\?|$),script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/lingoDuo/lingoDuo.js,requires-body=1,max-size=31457280,timeout=20,argument=xp_boost=false&multiplier=2&unlock_all=false&timer_switch=false&timer_mins=60&instant_clear=false
+
+[MITM]
+hostname = %APPEND% ios-api-*.duolingo.com, ios-api-*.duolingo.cn, api*.duolingo.com, api*.duolingo.cn, stories.duolingo.com, stories.duolingo.cn

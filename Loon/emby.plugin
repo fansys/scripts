@@ -1,0 +1,12 @@
+#!name=Emby
+#!desc=Emby 五个注册相关接口的本地响应
+#!author=qiangxinglin
+#!homepage=https://github.com/fansys/scripts/tree/main/Scripts/emby
+#!loon_version=3.5.1(983)
+# 来源：https://github.com/qiangxinglin/Emby
+
+[Script]
+request if ${url} ~= /^https:\/\/mb3admin\.com\/admin\/service\/(registration\/(validateDevice|validate|getStatus)|appstore\/register|supporter\/retrievekey)\/?(\?.*)?$/ then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/emby/emby.js") with tag="Emby", timeout=10
+
+[Mitm]
+hostname = mb3admin.com

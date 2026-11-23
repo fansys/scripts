@@ -1,6 +1,6 @@
 /* Google One combined 2TB / 20TB / 30TB mappings.
  * Upstream: https://github.com/crhywun/g1-acq/tree/v7.5.0 (crhywun).
- * Adapted by fansys/scripts for Quantumult X, Loon and Shadowrocket.
+ * Adapted for Quantumult X, Loon and Shadowrocket.
  */
 "use strict";
 (function () {

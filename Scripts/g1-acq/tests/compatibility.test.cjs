@@ -179,7 +179,7 @@ for (const [platform, filename, pattern] of configs) {
     assert.ok(fs.existsSync(path.join(dir, "README.md")));
     assert.ok(!fs.readdirSync(dir).some(name => name.startsWith("Plugins.")));
     const config = fs.readFileSync(path.join(dir, filename), "utf8");
-    const rules = config.split("\n").filter(line => line.includes("https://raw.githubusercontent.com/") && !line.startsWith("#"));
+    const rules = config.split("\n").filter(line => line.includes("https://cdn.jsdelivr.net/gh/fansys/scripts@main/") && !line.startsWith("#"));
     assert.equal(rules.length, 2);
     const reportRule = rules.find(line => line.includes("g1-sku-report.js"));
     const collectRule = rules.find(line => line.includes("g1-acq.js"));
@@ -197,7 +197,7 @@ for (const [platform, filename, pattern] of configs) {
       assert.equal(reports.test(url), false);
       assert.equal(collects.test(url), false);
     }
-    for (const match of config.matchAll(/https:\/\/raw\.githubusercontent\.com\/fansys\/scripts\/main\/([^\s",]+)/g)) {
+    for (const match of config.matchAll(/https:\/\/cdn\.jsdelivr\.net\/gh\/fansys\/scripts@main\/([^\s",]+)/g)) {
       assert.ok(fs.existsSync(path.join(ROOT, match[1])), `missing script: ${match[1]}`);
     }
     assert.match(config, /hostname\s*=.*one\.google\.com/);

@@ -1,6 +1,6 @@
 /* Local-only report for Quantumult X, Loon and Shadowrocket.
  * Upstream: https://github.com/crhywun/g1-acq/tree/v7.5.0 (crhywun).
- * Adapted by fansys/scripts: storage and local response compatibility.
+ * Adaptations: storage and local response compatibility.
  */
 "use strict";
 (function () {

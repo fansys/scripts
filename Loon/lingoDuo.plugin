@@ -1,0 +1,20 @@
+#!name=lingoDuo
+#!desc=Duolingo iOS 会员字段改写；可选经验倍数、关卡解锁、挑战时长和直接通关
+#!author=TAKAGIVEGETA
+#!homepage=https://github.com/fansys/scripts/tree/main/Scripts/lingoDuo
+#!loon_version=3.5.1(983)
+# 来源：https://github.com/TAKAGIVEGETA/MyScripts/tree/main/lingoDuo
+
+[Argument]
+xp_boost = switch,false,type=boolean,tag=经验加倍
+multiplier = select,2,3,type=number,tag=经验倍数
+unlock_all = switch,false,type=boolean,tag=解锁关卡
+timer_switch = switch,false,type=boolean,tag=修改挑战时长
+timer_mins = input,60,type=number,tag=挑战时长（分钟）
+instant_clear = switch,false,type=boolean,tag=直接通关（部分关卡）
+
+[Script]
+response if ${url} ~= /^https:\/\/(ios-api-[a-z0-9-]+|api\d+|stories)\.duolingo\.(com|cn)\/(2023-05-23\/(batch|users\/[^/?#]+)|([^/?#]+\/)*live-ops-challenges|([^/?#]+\/)*sessions|api2\/stories)(\?|$)/ then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/lingoDuo/lingoDuo.js", {${xp_boost}, ${multiplier}, ${unlock_all}, ${timer_switch}, ${timer_mins}, ${instant_clear}}) with requires_body=true, tag="lingoDuo", timeout=20
+
+[Mitm]
+hostname = ios-api-*.duolingo.com, ios-api-*.duolingo.cn, api*.duolingo.com, api*.duolingo.cn, stories.duolingo.com, stories.duolingo.cn

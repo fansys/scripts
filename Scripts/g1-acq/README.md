@@ -18,9 +18,9 @@ Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantum
 
 | 平台 | 独立订阅配置 | 导入说明 |
 | --- | --- | --- |
-| Quantumult X | [g1-acq.conf](https://raw.githubusercontent.com/fansys/scripts/main/QuantumultX/g1-acq.conf) | [远程重写资源](../../QuantumultX/README.md) |
-| Loon | [g1-acq.plugin](https://raw.githubusercontent.com/fansys/scripts/main/Loon/g1-acq.plugin) | [插件](../../Loon/README.md)，需 3.5.1（983）或更新版本 |
-| Shadowrocket | [g1-acq.sgmodule](https://raw.githubusercontent.com/fansys/scripts/main/Shadowrocket/g1-acq.sgmodule) | [模块](../../Shadowrocket/README.md) |
+| Quantumult X | [g1-acq.conf](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/g1-acq.conf) | [远程重写资源](../../QuantumultX/README.md) |
+| Loon | [g1-acq.plugin](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/g1-acq.plugin) | [插件](../../Loon/README.md)，需 3.5.1（983）或更新版本 |
+| Shadowrocket | [g1-acq.sgmodule](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/g1-acq.sgmodule) | [模块](../../Shadowrocket/README.md) |
 
 链接对应 `fansys/scripts` 的 `main` 分支。配置及脚本全部推送且公开可访问后才能远程安装。订阅引用本仓库脚本，不依赖上游仓库的脚本地址。
 

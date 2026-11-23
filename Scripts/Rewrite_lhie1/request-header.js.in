@@ -1,0 +1,46 @@
+/*
+ * Author: lhie1, NobyDa.
+ * Source: https://github.com/NobyDa/Script/blob/master/QuantumultX/Rewrite_lhie1.conf
+ * SPDX-License-Identifier: GPL-3.0-only
+ * Generated from upstream.conf by build.cjs. Adapted on 2026-11-23.
+ */
+"use strict";
+(function () {
+  var rules = __HEADER_RULES__;
+  var result = {};
+  try {
+    var request = typeof $request !== "undefined" && $request ? $request : {};
+    var url = typeof request.url === "string" ? request.url : "";
+    var rule;
+    for (var i = 0; i < rules.length; i++) {
+      if (new RegExp(rules[i].pattern).test(url)) { rule = rules[i]; break; }
+    }
+    if (rule) {
+      var headers = Object.assign({}, request.headers || {});
+      if (rule.remove) {
+        var changed = false;
+        Object.keys(headers).forEach(function (key) {
+          if (key.toLowerCase() === rule.remove.toLowerCase()) { delete headers[key]; changed = true; }
+        });
+        if (changed) result = { headers: headers };
+      } else {
+        var scheme = /^(https?):\/\//.exec(url);
+        if (scheme) {
+          Object.keys(headers).forEach(function (key) {
+            if (key.toLowerCase() === "host" || key === ":authority") delete headers[key];
+          });
+          headers.Host = rule.host;
+          if (typeof $task !== "undefined" || typeof $prefs !== "undefined") {
+            result = { path: rule.path, headers: headers };
+          } else {
+            result = { url: scheme[1] + "://" + rule.host + rule.path, headers: headers };
+          }
+        }
+      }
+    }
+  } catch (error) {
+    // Keep the original request if the host API supplies unexpected input.
+    result = {};
+  }
+  $done(result);
+})();

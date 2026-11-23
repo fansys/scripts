@@ -1,0 +1,11 @@
+#!name=Emby
+#!desc=Emby 五个注册相关接口的本地响应
+#!author=qiangxinglin
+#!system=ios
+# 来源：https://github.com/qiangxinglin/Emby
+
+[Script]
+emby = type=http-request,pattern=^https:\/\/mb3admin\.com\/admin\/service\/(registration\/(validateDevice|validate|getStatus)|appstore\/register|supporter\/retrievekey)\/?(\?.*)?$,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/emby/emby.js,timeout=10
+
+[MITM]
+hostname = %APPEND% mb3admin.com
