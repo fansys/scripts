@@ -1,0 +1,11 @@
+#!name=G1 ACQ
+#!desc=G1 ACQ：Google One 原始 SKU 采集、三档商品编号改写、本机报告与 JSON 导出
+#!system=ios
+# 来源：https://github.com/crhywun/g1-acq/tree/v7.5.0
+
+[Script]
+g1-sku-report = type=http-request,pattern=^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$,script-path=https://raw.githubusercontent.com/fansys/scripts/main/Scripts/g1-acq/g1-sku-report.js,timeout=20
+g1-acq = type=http-response,pattern=^https:\/\/one\.google\.com\/(?!g1-sku-report\/?(?:\?|$)),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/fansys/scripts/main/Scripts/g1-acq/g1-acq.js,timeout=20
+
+[MITM]
+hostname = %APPEND% one.google.com
