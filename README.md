@@ -2,54 +2,6 @@
 
 本仓库将插件脚本与平台订阅配置分开管理。插件相关文件统一放在 `Scripts` 中，平台订阅文件引用对应插件的 JavaScript 文件。
 
-## 目录结构
-
-```text
-.
-├── README.md
-├── Scripts/
-│   ├── README.md
-│   ├── Rewrite_lhie1/
-│   │   ├── README.md
-│   │   ├── upstream.conf
-│   │   ├── request-header.js
-│   │   ├── request-header.js.in
-│   │   ├── build.cjs
-│   │   ├── LICENSE
-│   │   └── tests/
-│   ├── emby/
-│   │   ├── README.md
-│   │   ├── emby.js
-│   │   └── tests/
-│   ├── g1-acq/
-│   │   ├── README.md
-│   │   ├── g1-acq.js
-│   │   ├── g1-sku-report.js
-│   │   └── tests/
-│   └── lingoDuo/
-│       ├── README.md
-│       ├── lingoDuo.js
-│       └── tests/
-├── QuantumultX/
-│   ├── README.md
-│   ├── Rewrite_lhie1.conf
-│   ├── emby.conf
-│   ├── g1-acq.conf
-│   └── lingoDuo.conf
-├── Loon/
-│   ├── README.md
-│   ├── Rewrite_lhie1.plugin
-│   ├── emby.plugin
-│   ├── g1-acq.plugin
-│   └── lingoDuo.plugin
-└── Shadowrocket/
-    ├── README.md
-    ├── Rewrite_lhie1.sgmodule
-    ├── emby.sgmodule
-    ├── g1-acq.sgmodule
-    └── lingoDuo.sgmodule
-```
-
 ## 插件与订阅
 
 | 插件 | 功能 | Quantumult X | Loon | Shadowrocket |
