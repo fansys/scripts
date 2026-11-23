@@ -1,6 +1,6 @@
 # Rewrite_lhie1
 
-来自 NobyDa/Script 的 lhie1 历史重写规则合集，支持 Quantumult X、Loon 和 Shadowrocket。上游文件标注更新日期为 **2021-08-26**，本仓库于 2026-11-23 引入快照。
+来自 NobyDa/Script 的 lhie1 历史重写规则合集，支持 Quantumult X、Loon 和 Shadowrocket。规则快照的上游更新日期为 **2021-08-26**。
 
 ## 原始地址
 
@@ -43,8 +43,6 @@
 | Quantumult X | [Rewrite_lhie1.conf](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/Rewrite_lhie1.conf) | 远程重写资源 |
 | Loon | [Rewrite_lhie1.plugin](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/Rewrite_lhie1.plugin) | 插件管理；需 3.5.1（983）或更新版本 |
 | Shadowrocket | [Rewrite_lhie1.sgmodule](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmodule) | 模块管理 |
-
-本仓库订阅与脚本下载均使用 jsDelivr，引用 `fansys/scripts` 的 `main` 分支。配置及脚本推送并公开后可用，更新还受 CDN 缓存影响。
 
 ## 使用
 

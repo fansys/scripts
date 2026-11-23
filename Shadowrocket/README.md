@@ -2,12 +2,11 @@
 
 此目录维护 Shadowrocket 平台的模块订阅，每个插件一个 `.sgmodule` 文件。
 
-## 维护约定
+## 目录约定
 
-- 每个插件使用独立订阅配置，不合并为 `Plugins` 文件。
+- 每个插件使用一个独立订阅配置。
 - 订阅文件引用 [`Scripts`](../Scripts/README.md) 下的插件 JavaScript 文件。
 - 插件相关文件统一保存在对应的 `Scripts/<插件名称>/` 目录中。
-- 添加订阅文件时，在本 README 中补充文件说明、订阅地址和导入方式。
 
 ## G1 ACQ
 
@@ -32,8 +31,6 @@ AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
 
 此规则会影响全部 UDP 443 流量，本仓库模块不自动添加它。
 
-地址按 `main` 分支生成，推送并公开文件后可用。
-
 ## lingoDuo
 
 配置：[lingoDuo.sgmodule](./lingoDuo.sgmodule)。功能、解密域名及可选参数见 [插件说明](../Scripts/lingoDuo/README.md)。
@@ -44,7 +41,7 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/lingoDuo.sgmodule
 
 在模块管理中添加地址并启用，开启当前配置的 HTTPS 解密，安装、信任证书。模块通过 `%APPEND%` 追加 Duolingo 解密域名。更新后重新连接并重启 Duolingo。每个插件独立订阅，可与 G1 ACQ 分别启停。
 
-默认仅改写会员字段；增强功能在本地模块副本的 `argument=` 中配置，避免远程更新覆盖。地址推送到 `main` 并公开后可用。
+默认仅改写会员字段；增强功能在本地模块副本的 `argument=` 中配置，避免远程更新覆盖。
 
 ## Emby
 
@@ -54,7 +51,7 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/lingoDuo.sgmodule
 https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/emby.sgmodule
 ```
 
-在模块管理中独立添加并启用，开启当前配置的 HTTPS 解密，安装、信任证书。模块通过 `%APPEND%` 追加 `mb3admin.com`。更新脚本并重新连接后重启 Emby。配置在请求阶段生成本地响应，需推送到 `main` 并公开后使用。
+在模块管理中独立添加并启用，开启当前配置的 HTTPS 解密，安装、信任证书。模块通过 `%APPEND%` 追加 `mb3admin.com`。更新脚本并重新连接后重启 Emby。配置在请求阶段生成本地响应。
 
 ## Rewrite_lhie1
 
@@ -64,4 +61,4 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/emby.sgmodule
 https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmodule
 ```
 
-在模块管理中独立添加，启用 HTTPS 解密并安装、信任证书。441 条规则转换为 URL Rewrite，10 条请求头规则引用公共脚本；MITM 域名通过 `%APPEND%` 追加。此合集上游标注更新日期为 2021-08-26，需结合当前应用核对效果；订阅与脚本推送并公开后可用。
+在模块管理中独立添加，启用 HTTPS 解密并安装、信任证书。441 条规则转换为 URL Rewrite，10 条请求头规则引用公共脚本；MITM 域名通过 `%APPEND%` 追加。此合集上游标注更新日期为 2021-08-26，需结合当前应用核对效果。

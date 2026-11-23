@@ -4,7 +4,7 @@ Duolingo iOS 响应改写插件，支持 Quantumult X、Loon 和 Shadowrocket。
 
 ## 来源与适配
 
-本次基于 2026-11-23 查看的上游 `main/lingoDuo` 脚本：
+上游脚本：
 
 - [`lingoDuo-xaM-enhanced.js`](https://github.com/TAKAGIVEGETA/MyScripts/blob/main/lingoDuo/lingoDuo-xaM-enhanced.js)：会员字段、经验倍数及课程关卡状态。
 - [`lingoDuo-time-modifier.js`](https://github.com/TAKAGIVEGETA/MyScripts/blob/main/lingoDuo/lingoDuo-time-modifier.js)：限时挑战时长。
@@ -22,8 +22,6 @@ Duolingo iOS 响应改写插件，支持 Quantumult X、Loon 和 Shadowrocket。
 | [lingoDuo.js](./lingoDuo.js) | 三平台通用响应脚本，包含默认会员字段改写与可选增强功能 |
 | [tests/compatibility.test.cjs](./tests/compatibility.test.cjs) | 三平台参数、响应改写、异常处理和订阅规则测试 |
 
-平台订阅配置仅引用本目录脚本，不依赖上游脚本下载地址。
-
 ## 订阅链接
 
 | 平台 | 独立订阅 | 导入位置 |
@@ -31,8 +29,6 @@ Duolingo iOS 响应改写插件，支持 Quantumult X、Loon 和 Shadowrocket。
 | Quantumult X | [lingoDuo.conf](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/lingoDuo.conf) | 远程重写资源 |
 | Loon | [lingoDuo.plugin](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/lingoDuo.plugin) | 插件管理；需 3.5.1（983）或更新版本 |
 | Shadowrocket | [lingoDuo.sgmodule](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/lingoDuo.sgmodule) | 模块管理 |
-
-地址对应 `fansys/scripts` 的 `main` 分支，需将配置和脚本推送并公开后使用。不要将这些地址作为节点订阅或完整主配置导入。
 
 ## 安装与使用
 

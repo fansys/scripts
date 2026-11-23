@@ -8,7 +8,7 @@
 - 上游仓库：[qiangxinglin/Emby](https://github.com/qiangxinglin/Emby)。
 - 原始脚本：[scripts/emby.js](https://github.com/qiangxinglin/Emby/blob/main/scripts/emby.js)。
 
-本次基于 2026-11-23 查看的上游 `main` 内容。保留五个接口的业务响应字段，增加 Loon / Shadowrocket 请求阶段的本地响应适配、明确 JSON 类型与禁用缓存，并收紧域名和路径匹配。脚本不主动发起网络请求，不写本地存储，不发送激活通知。
+保留上游五个接口的业务响应字段，支持三平台请求阶段的本地响应，使用 JSON 类型并禁用缓存，按域名和路径匹配请求。脚本不主动发起网络请求，不写本地存储，不发送激活通知。
 
 ## 文件
 
@@ -25,8 +25,6 @@
 | Quantumult X | [emby.conf](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/emby.conf) | 远程重写资源 |
 | Loon | [emby.plugin](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/emby.plugin) | 插件管理；需 3.5.1（983）或更新版本 |
 | Shadowrocket | [emby.sgmodule](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/emby.sgmodule) | 模块管理 |
-
-链接对应 `fansys/scripts` 的 `main` 分支，配置与脚本推送并公开后可用。每个平台独立配置，只引用本仓库 `Scripts/emby/emby.js`。
 
 ## 安装与范围
 

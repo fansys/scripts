@@ -13,8 +13,6 @@ Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantum
 | [g1-sku-report.js](./g1-sku-report.js) | 在请求阶段生成本机报告，支持 JSON 导出和手动清空记录 |
 | [tests/compatibility.test.cjs](./tests/compatibility.test.cjs) | 三个平台的模拟宿主测试及订阅路径验证 |
 
-平台目录仅保存各插件的订阅配置及平台 README，插件脚本与测试均放在本目录。
-
 ## 订阅链接
 
 | 平台 | 独立订阅配置 | 导入说明 |
@@ -22,8 +20,6 @@ Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantum
 | Quantumult X | [g1-acq.conf](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/g1-acq.conf) | [远程重写资源](../../QuantumultX/README.md) |
 | Loon | [g1-acq.plugin](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/g1-acq.plugin) | [插件](../../Loon/README.md)，需 3.5.1（983）或更新版本 |
 | Shadowrocket | [g1-acq.sgmodule](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/g1-acq.sgmodule) | [模块](../../Shadowrocket/README.md) |
-
-链接对应 `fansys/scripts` 的 `main` 分支。配置及脚本全部推送且公开可访问后才能远程安装。订阅引用本仓库脚本，不依赖上游仓库的脚本地址。
 
 ## 行为与映射
 

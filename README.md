@@ -59,14 +59,12 @@
 | [Emby](./Scripts/emby/README.md) | 五个注册相关接口的本地 JSON 响应 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/emby.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/emby.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/emby.sgmodule) |
 | [Rewrite_lhie1](./Scripts/Rewrite_lhie1/README.md) | 451 条历史重写规则：重定向、请求头改写及广告请求拒绝 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/Rewrite_lhie1.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/Rewrite_lhie1.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmodule) |
 
-链接按 `fansys/scripts` 的 `main` 分支生成；文件推送到该分支且仓库公开可访问后生效。每个平台的导入方法见下方目录说明。
-
-## 维护约定
+## 目录约定
 
 - [`Scripts`](./Scripts/README.md) 是公共脚本目录，每个插件使用独立子目录，插件相关文件全部放在对应目录中。
-- [`QuantumultX`](./QuantumultX/README.md)、[`Loon`](./Loon/README.md)、[`Shadowrocket`](./Shadowrocket/README.md) 是平台订阅目录。每个插件在每个平台各维护一个独立订阅配置，引用 `Scripts` 下的插件 JavaScript 文件；不使用合并所有插件的 `Plugins` 配置。
+- [`QuantumultX`](./QuantumultX/README.md)、[`Loon`](./Loon/README.md)、[`Shadowrocket`](./Shadowrocket/README.md) 是平台订阅目录。每个插件在每个平台各维护一个独立订阅配置，引用 `Scripts` 下的插件 JavaScript 文件。
 - 根目录、`Scripts`、每个插件目录和每个平台订阅目录均维护各自的 `README.md`。
-- 本仓库订阅及脚本下载地址统一使用 `https://cdn.jsdelivr.net/gh/fansys/scripts@main/`。
+- 订阅、脚本及图标通过 jsDelivr 提供。
 - 插件目录的 README 说明插件用途、文件作用、配置方式及使用方法；平台目录的 README 说明对应订阅文件的用途和导入方式。
 
 ## 验证
