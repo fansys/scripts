@@ -18,6 +18,7 @@ Duolingo iOS 响应改写插件，支持 Quantumult X、Loon 和 Shadowrocket。
 
 | 文件 | 用途 |
 | --- | --- |
+| [icon.png](./icon.png) | 沿用 TAKAGIVEGETA 的上游图标（[原始地址](https://github.com/TAKAGIVEGETA/MyScripts/blob/main/lingoDuo/lingoDuo.png)），供三平台订阅引用 |
 | [lingoDuo.js](./lingoDuo.js) | 三平台通用响应脚本，包含默认会员字段改写与可选增强功能 |
 | [tests/compatibility.test.cjs](./tests/compatibility.test.cjs) | 三平台参数、响应改写、异常处理和订阅规则测试 |
 

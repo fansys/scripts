@@ -28,6 +28,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
+| [icon.png](./icon.png) | 广告过滤图标，来自 Koolson/Qure（[原始地址](https://github.com/Koolson/Qure/blob/master/IconSet/Color/Advertising.png)），供三平台订阅引用 |
 | [upstream.conf](./upstream.conf) | 保存引入时的上游配置 |
 | [request-header.js](./request-header.js) | 生成的三平台通用请求头脚本 |
 | [request-header.js.in](./request-header.js.in) | 请求头脚本模板 |

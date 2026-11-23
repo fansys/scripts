@@ -8,6 +8,7 @@ Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantum
 
 | 文件 | 用途 |
 | --- | --- |
+| [icon.png](./icon.png) | Google 单字母 G 图标，来自 Koolson/Qure（[原始地址](https://github.com/Koolson/Qure/blob/master/IconSet/Color/Google_Search.png)），供三平台订阅引用 |
 | [g1-acq.js](./g1-acq.js) | 从原始响应采集 SKU，执行三档映射并记录诊断 |
 | [g1-sku-report.js](./g1-sku-report.js) | 在请求阶段生成本机报告，支持 JSON 导出和手动清空记录 |
 | [tests/compatibility.test.cjs](./tests/compatibility.test.cjs) | 三个平台的模拟宿主测试及订阅路径验证 |

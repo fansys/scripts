@@ -1,4 +1,5 @@
 #!name=G1 ACQ
+#!icon=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/icon.png
 #!desc=G1 ACQ：Google One 原始 SKU 采集、三档商品编号改写、本机报告与 JSON 导出
 #!system=ios
 # 来源：https://github.com/crhywun/g1-acq/tree/v7.5.0

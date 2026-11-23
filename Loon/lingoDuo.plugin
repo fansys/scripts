@@ -1,4 +1,5 @@
 #!name=lingoDuo
+#!icon=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/lingoDuo/icon.png
 #!desc=Duolingo iOS 会员字段改写；可选经验倍数、关卡解锁、挑战时长和直接通关
 #!author=TAKAGIVEGETA
 #!homepage=https://github.com/fansys/scripts/tree/main/Scripts/lingoDuo

@@ -14,6 +14,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
+| [icon.png](./icon.png) | Emby 图标，来自 Koolson/Qure（[原始地址](https://github.com/Koolson/Qure/blob/master/IconSet/Color/Emby.png)），供三平台订阅引用 |
 | [emby.js](./emby.js) | 三个平台共用的请求阶段本地响应脚本 |
 | [tests/compatibility.test.cjs](./tests/compatibility.test.cjs) | 五个接口、宿主返回格式、URL 范围及订阅引用测试 |
 
