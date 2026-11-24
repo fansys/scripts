@@ -1,0 +1,35 @@
+#!name=红果短剧去广告
+#!desc=HongGuo Lite Plus：广告及上报拦截，广告接口返回空 JSON
+#!author=Minis
+#!icon=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/hongguo/icon.png
+#!homepage=https://github.com/fansys/scripts/tree/main/Scripts/hongguo
+# 来源：https://github.com/k6nfmm7dbr-commits/hongguo-lite/blob/main/surge/hongguo-lite-plus.sgmodule
+# Copyright (c) 2026 k6nfmm7dbr-commits
+# SPDX-License-Identifier: MIT；许可证：Scripts/hongguo/LICENSE
+#!system=ios
+
+[Rule]
+DOMAIN-KEYWORD,pangolin,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+DOMAIN-SUFFIX,pglstatp-toutiao-b.com,REJECT
+DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT
+DOMAIN,zlink.ugsdk.cn,REJECT
+DOMAIN,mon.toutiaocloud.net,REJECT
+DOMAIN,mon.toutiaocloud.com,REJECT
+DOMAIN,i.snssdk.com,REJECT
+DOMAIN,i-lq.snssdk.com,REJECT
+DOMAIN,is.snssdk.com,REJECT
+DOMAIN,is-lq.snssdk.com,REJECT
+DOMAIN-KEYWORD,applog.fqnovel.com,REJECT
+DOMAIN-KEYWORD,-misc.fqnovel.com,REJECT
+
+# ads 数字子域使用 URL 正则，避免依赖 DOMAIN-REGEX。
+[URL Rewrite]
+^https?:\/\/ads[0-9]+-normal\.zijieapi\.com(?::[0-9]+)?(?:[/?#]|$) - reject
+
+[Script]
+hongguo_ad_1 = type=http-request,pattern=^https:\/\/[a-zA-Z0-9.-]*pangolin-sdk-toutiao[a-zA-Z0-9.-]*(?::[0-9]+)?\/api\/ad\/union\/sdk\/,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/hongguo/hongguo.js,timeout=10
+hongguo_ad_2 = type=http-request,pattern=^https:\/\/(?:[a-zA-Z0-9-]+\.)+snssdk\.com\/api\/ad\/,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/hongguo/hongguo.js,timeout=10
+
+[MITM]
+hostname = %APPEND% *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao-b.com, *.pangolin-sdk-toutiao1.com, *.snssdk.com, ads*-normal.zijieapi.com

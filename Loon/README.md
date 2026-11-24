@@ -56,3 +56,13 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/Rewrite_lhie1.plugin
 ```
 
 使用 Loon 3.5.1（983）或更新版本，在插件管理中独立添加并启用重写、脚本和 MitM，安装、信任证书。441 条规则转换为原生 Rewrite，10 条请求头规则引用公共脚本。此合集上游标注更新日期为 2021-08-26，需结合当前应用核对效果。
+
+## hongguo
+
+配置：[hongguo.plugin](./hongguo.plugin)。来源、规则范围及三平台差异见 [插件说明](../Scripts/hongguo/README.md)。
+
+```text
+https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/hongguo.plugin
+```
+
+使用 Loon 3.5.1（983）或更新版本，在插件管理中添加并启用重写、脚本及 MitM，安装并信任证书。插件包含 13 条原生域名规则和 1 条广告 API 数字域名的请求重写；2 条广告接口引用公共脚本返回空 JSON。解密范围包含穿山甲子域、`*.snssdk.com` 和 `ads*-normal.zijieapi.com`。

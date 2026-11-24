@@ -62,3 +62,13 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/Rewrite_lhie1.conf
 ```
 
 作为独立远程重写资源添加，启用重写及 HTTPS 解密并信任证书。10 条请求头规则引用本仓库公共脚本，其余规则使用原生语法。此合集上游标注更新日期为 2021-08-26，需结合当前应用核对效果。
+
+## hongguo
+
+配置：[hongguo.conf](./hongguo.conf)。来源、规则范围及三平台差异见 [插件说明](../Scripts/hongguo/README.md)。
+
+```text
+https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/hongguo.conf
+```
+
+作为独立远程重写资源添加，启用重写及 HTTPS 解密并信任证书。14 条广告及上报域名规则转换为 URL 拒绝规则，2 条广告接口通过公共脚本返回空 JSON。该订阅适用于 HTTP(S) 流量，HTTPS 拦截依赖 MITM；解密范围包含广告及上报域名和 `*.snssdk.com`。

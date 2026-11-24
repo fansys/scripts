@@ -62,3 +62,13 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmod
 ```
 
 在模块管理中独立添加，启用 HTTPS 解密并安装、信任证书。441 条规则转换为 URL Rewrite，10 条请求头规则引用公共脚本；MITM 域名通过 `%APPEND%` 追加。此合集上游标注更新日期为 2021-08-26，需结合当前应用核对效果。
+
+## hongguo
+
+配置：[hongguo.sgmodule](./hongguo.sgmodule)。来源、规则范围及三平台差异见 [插件说明](../Scripts/hongguo/README.md)。
+
+```text
+https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/hongguo.sgmodule
+```
+
+在模块管理中添加并启用，开启 HTTPS 解密并安装、信任证书。模块包含 13 条原生域名规则和 1 条广告 API 数字域名的 URL Rewrite；2 条广告接口引用公共脚本返回空 JSON。穿山甲子域、`*.snssdk.com` 和 `ads*-normal.zijieapi.com` 通过 `%APPEND%` 追加到 MITM。

@@ -18,3 +18,10 @@
 | [lingoDuo](./lingoDuo/README.md) | Duolingo iOS 会员字段改写，可选经验倍数、关卡解锁、限时挑战时长和部分关卡直接通关 | Quantumult X、Loon、Shadowrocket | [TAKAGIVEGETA/MyScripts/lingoDuo](https://github.com/TAKAGIVEGETA/MyScripts/tree/main/lingoDuo) |
 | [Emby](./emby/README.md) | Emby 五个注册相关接口的本地 JSON 响应 | Quantumult X、Loon、Shadowrocket | [qiangxinglin/Emby 原始订阅](https://cdn.jsdelivr.net/gh/qiangxinglin/Emby@main/QuantumultX/emby.conf) |
 | [Rewrite_lhie1](./Rewrite_lhie1/README.md) | 451 条历史重写规则，保留上游快照并适配请求头改写 | Quantumult X、Loon、Shadowrocket | [NobyDa/Script/Rewrite_lhie1.conf](https://github.com/NobyDa/Script/blob/master/QuantumultX/Rewrite_lhie1.conf) |
+| [hongguo](./hongguo/README.md) | 红果短剧广告及上报拦截，广告接口返回空 JSON；Quantumult X 使用 HTTP(S) 重写 | Quantumult X、Loon、Shadowrocket | [hongguo-lite-plus.sgmodule](https://github.com/k6nfmm7dbr-commits/hongguo-lite/blob/main/surge/hongguo-lite-plus.sgmodule) |
+
+## 本地工具
+
+| 工具 | 说明 | 运行环境 |
+| --- | --- | --- |
+| [jsDelivr 缓存清理](./jsdelivr-purge/README.md) | 批量清理订阅、脚本及图标缓存，支持预览和按插件、路径筛选 | Node.js 18+ |
