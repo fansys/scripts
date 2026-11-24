@@ -71,4 +71,4 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmod
 https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/hongguo.sgmodule
 ```
 
-在模块管理中添加并启用，开启 HTTPS 解密并安装、信任证书。模块包含 13 条原生域名规则和 1 条广告 API 数字域名的 URL Rewrite；2 条广告接口引用公共脚本返回空 JSON。穿山甲子域、`*.snssdk.com` 和 `ads*-normal.zijieapi.com` 通过 `%APPEND%` 追加到 MITM。
+在模块管理中添加并启用，开启 HTTPS 解密并安装、信任证书。模块包含 13 条原生域名规则和 2 条广告 API 数字域名的 URL Rewrite；2 条广告接口引用公共脚本返回空 JSON。穿山甲子域、`*.snssdk.com` 和 `ads*-normal.zijieapi.com`、`ads*-normal-lq.zijieapi.com` 通过 `%APPEND%` 追加到 MITM。

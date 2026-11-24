@@ -107,6 +107,7 @@ for (const [platform, config] of Object.entries(configs)) {
     assert.ok(config.includes("#!icon=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/hongguo/icon.png"));
     assert.ok(config.includes("*.snssdk.com"));
     assert.ok(config.includes("ads*-normal.zijieapi.com"));
+    assert.ok(config.includes("ads*-normal-lq.zijieapi.com"));
     assert.ok(!active(config).some(line => /^DOMAIN-SUFFIX,(snssdk\.com|byteimg\.com|pstatp\.com|fqnovel\.com|douyinvod\.com),/.test(line)));
     const hostname = config.split("\n").find(line => line.startsWith("hostname = "));
     assert.ok(!hostname.split(/[, ]+/).some(value => ["*.byteimg.com", "*.pstatp.com", "*.douyinvod.com"].includes(value)));
@@ -114,6 +115,31 @@ for (const [platform, config] of Object.entries(configs)) {
     for (const match of config.matchAll(/https:\/\/cdn\.jsdelivr\.net\/gh\/fansys\/scripts@main\/([^\s"'<>),]+)/g)) {
       assert.ok(fs.statSync(path.join(ROOT, match[1])).isFile(), match[1]);
     }
+  });
+
+  test(`${platform}: normal-lq ad hosts reject only exact numeric hostnames`, () => {
+    const lines = active(config).filter(line => line.includes("ads[0-9]+-normal-lq"));
+    assert.equal(lines.length, 1);
+    const line = lines[0];
+    let regex;
+    if (platform === "Loon") {
+      assert.ok(line.endsWith("then reject"));
+      regex = vm.runInNewContext(line.match(/~= (\/.+\/) then reject/)[1]);
+    } else {
+      assert.ok(line.endsWith(platform === "QuantumultX" ? " url reject" : " - reject"));
+      regex = new RegExp(line.split(" ")[0]);
+    }
+    for (const host of ["ads0-normal-lq.zijieapi.com", "ads3-normal-lq.zijieapi.com", "ads123-normal-lq.zijieapi.com"]) {
+      for (const scheme of ["http://", "https://"]) {
+        for (const tail of ["", "/", ":443/ad", "/api/ad/?id=1"]) assert.ok(regex.test(scheme + host + tail));
+      }
+    }
+    for (const host of [
+      "ads-normal-lq.zijieapi.com", "adsx-normal-lq.zijieapi.com", "api3-normal-lq.zijieapi.com",
+      "ads3-normal-lq.zijieapi.com.evil.test", "sub.ads3-normal-lq.zijieapi.com", "ads3-normal-lqXzijieapi.com"
+    ]) assert.ok(!regex.test(`https://${host}/ad`), host);
+    assert.ok(!regex.test("https://example.com/?url=https://ads3-normal-lq.zijieapi.com/ad"));
+    assert.ok(!regex.test("https://ads3-normal-lq.zijieapi.com@evil.test/ad"));
   });
 }
 
@@ -135,7 +161,7 @@ test("Loon and Shadowrocket preserve 13 native domain rules and replace the unsu
 test("Quantumult X domain-to-URL conversion matches upstream hostname semantics", () => {
   const rejectPatterns = active(configs.QuantumultX).filter(line => line.endsWith(" url reject"))
     .map(line => new RegExp(line.split(" url ")[0]));
-  assert.equal(rejectPatterns.length, upstreamRules.length);
+  assert.equal(rejectPatterns.length, upstreamRules.length + 1);
   const hosts = [
     "api-access.pangolin-sdk-toutiao.com", "pangolin-dsp-toutiao-b.com",
     "pglstatp-toutiao.com", "p6.pglstatp-toutiao-b.com", "p6-ad-sign.byteimg.com",

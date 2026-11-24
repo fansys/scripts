@@ -26,10 +26,11 @@ DOMAIN-KEYWORD,-misc.fqnovel.com,REJECT
 # ads 数字子域使用 URL 正则，避免依赖 DOMAIN-REGEX。
 [Rewrite]
 request if ${url} ~= /^https?:\/\/ads[0-9]+-normal\.zijieapi\.com(?::[0-9]+)?(?:[/?#]|$)/ then reject
+request if ${url} ~= /^https?:\/\/ads[0-9]+-normal-lq\.zijieapi\.com(?::[0-9]+)?(?:[/?#]|$)/ then reject
 
 [Script]
 request if ${url} ~= /^https:\/\/[a-zA-Z0-9.-]*pangolin-sdk-toutiao[a-zA-Z0-9.-]*(?::[0-9]+)?\/api\/ad\/union\/sdk\// then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/hongguo/hongguo.js") with tag="HongGuo Ad 1", timeout=10
 request if ${url} ~= /^https:\/\/(?:[a-zA-Z0-9-]+\.)+snssdk\.com\/api\/ad\// then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/hongguo/hongguo.js") with tag="HongGuo Ad 2", timeout=10
 
 [Mitm]
-hostname = *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao-b.com, *.pangolin-sdk-toutiao1.com, *.snssdk.com, ads*-normal.zijieapi.com
+hostname = *.pangolin-sdk-toutiao.com, *.pangolin-sdk-toutiao-b.com, *.pangolin-sdk-toutiao1.com, *.snssdk.com, ads*-normal.zijieapi.com, ads*-normal-lq.zijieapi.com

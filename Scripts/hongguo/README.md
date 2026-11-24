@@ -34,7 +34,7 @@
 | 穿山甲广告 | 域名关键词 `pangolin`，域名后缀 `pglstatp-toutiao.com`、`pglstatp-toutiao-b.com` |
 | 广告素材 | 域名关键词 `-ad-sign.byteimg.com` |
 | 广告跳转 | `zlink.ugsdk.cn` |
-| 字节广告 API | `ads` 后跟一个或多个数字的 `ads数字-normal.zijieapi.com` |
+| 字节广告 API | `ads` 后跟一个或多个数字的 `ads数字-normal.zijieapi.com`、`ads数字-normal-lq.zijieapi.com` |
 | 埋点上报 | `mon.toutiaocloud.net`、`mon.toutiaocloud.com`、`i.snssdk.com`、`i-lq.snssdk.com`、`is.snssdk.com`、`is-lq.snssdk.com`，以及域名关键词 `applog.fqnovel.com`、`-misc.fqnovel.com` |
 
 下列 HTTPS 请求在请求阶段返回 `{}`，不请求原站、不读取响应正文、不写本地存储：
@@ -48,11 +48,11 @@
 
 | 平台 | 实现与范围 |
 | --- | --- |
-| Quantumult X | 14 条域名规则转换为 URL 拒绝规则，2 条广告接口使用 `script-echo-response`；适用于 HTTP(S) 请求，HTTPS 拦截依赖 MITM，不包含独立的域名分流订阅 |
-| Loon | 保留 13 条原生域名规则；广告 API 的数字域名正则转换为请求重写，2 条广告接口通过请求脚本返回本地响应 |
-| Shadowrocket | 保留 13 条原生域名规则；广告 API 的数字域名正则转换为 URL Rewrite，2 条广告接口通过请求脚本返回本地响应；MITM 域名使用 `%APPEND%` 追加 |
+| Quantumult X | 15 条域名规则转换为 URL 拒绝规则，2 条广告接口使用 `script-echo-response`；适用于 HTTP(S) 请求，HTTPS 拦截依赖 MITM，不包含独立的域名分流订阅 |
+| Loon | 保留 13 条原生域名规则；两组广告 API 数字域名正则转换为请求重写，2 条广告接口通过请求脚本返回本地响应 |
+| Shadowrocket | 保留 13 条原生域名规则；两组广告 API 数字域名正则转换为 URL Rewrite，2 条广告接口通过请求脚本返回本地响应；MITM 域名使用 `%APPEND%` 追加 |
 
-`ads[0-9]+-normal.zijieapi.com` 的匹配保留数字限制，不以 `ads*-normal` 通配拦截代替。MITM 中的 `ads*-normal.zijieapi.com` 仅用于选择解密主机，实际拒绝仍由正则判断。
+`ads[0-9]+-normal\.zijieapi\.com` 和 `ads[0-9]+-normal-lq\.zijieapi\.com` 均保留数字限制。`normal-lq` 是在上游规则基础上补充的拒绝规则。MITM 中的 `ads*-normal.zijieapi.com` 和 `ads*-normal-lq.zijieapi.com` 仅用于选择解密主机，实际拒绝仍由正则判断。
 
 Loon 和 Shadowrocket 解密上游声明的三个穿山甲子域范围、`*.snssdk.com`，以及广告 API 主机。Quantumult X 还需解密域名拒绝规则涉及的广告及上报主机，范围更广。URL 重写不覆盖其他协议或未进入解密的 HTTPS 流量。
 
@@ -71,4 +71,4 @@ Loon 和 Shadowrocket 解密上游声明的三个穿山甲子域范围、`*.snss
 node --test Scripts/hongguo/tests/compatibility.test.cjs
 ```
 
-测试覆盖广告接口本地响应、普通内容放行、14 条上游规则的转换、数字域名匹配、订阅资源及缓存清理工具收录，不包含 iOS 客户端实机验证。
+测试覆盖广告接口本地响应、普通内容放行、14 条上游规则的转换、补充的 `normal-lq` 规则及数字域名匹配、订阅资源及缓存清理工具收录，不包含 iOS 客户端实机验证。

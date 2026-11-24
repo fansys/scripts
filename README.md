@@ -12,6 +12,17 @@
 | [Rewrite_lhie1](./Scripts/Rewrite_lhie1/README.md) | 451 条历史重写规则：重定向、请求头改写及广告请求拒绝 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/Rewrite_lhie1.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/Rewrite_lhie1.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmodule) |
 | [hongguo](./Scripts/hongguo/README.md) | 红果短剧广告及上报拦截，广告接口返回空 JSON | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/hongguo.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/hongguo.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/hongguo.sgmodule) |
 
+## 红果短剧去广告
+
+[hongguo](./Scripts/hongguo/README.md) 拦截穿山甲广告、广告素材及埋点上报，对指定广告接口返回空 JSON，并拒绝下列广告 API 主机的 HTTP(S) 请求：
+
+| 主机匹配（正则） | 处理 |
+| --- | --- |
+| `^ads[0-9]+-normal\.zijieapi\.com$` | REJECT |
+| `^ads[0-9]+-normal-lq\.zijieapi\.com$` | REJECT |
+
+三个平台均保留一个或多个数字的匹配限制，HTTPS 拒绝依赖 MITM。订阅入口见上表，解密范围和安装方式见 [插件说明](./Scripts/hongguo/README.md#平台适配)。
+
 ## 目录约定
 
 - [`Scripts`](./Scripts/README.md) 是公共脚本目录，每个插件使用独立子目录，插件相关文件全部放在对应目录中。

@@ -65,4 +65,4 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/Rewrite_lhie1.plugin
 https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/hongguo.plugin
 ```
 
-使用 Loon 3.5.1（983）或更新版本，在插件管理中添加并启用重写、脚本及 MitM，安装并信任证书。插件包含 13 条原生域名规则和 1 条广告 API 数字域名的请求重写；2 条广告接口引用公共脚本返回空 JSON。解密范围包含穿山甲子域、`*.snssdk.com` 和 `ads*-normal.zijieapi.com`。
+使用 Loon 3.5.1（983）或更新版本，在插件管理中添加并启用重写、脚本及 MitM，安装并信任证书。插件包含 13 条原生域名规则和 2 条广告 API 数字域名的请求重写；2 条广告接口引用公共脚本返回空 JSON。解密范围包含穿山甲子域、`*.snssdk.com` 和 `ads*-normal.zijieapi.com`、`ads*-normal-lq.zijieapi.com`。
