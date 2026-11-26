@@ -212,7 +212,7 @@ for (const [platform, filename, pattern] of configs) {
     assert.ok(fs.existsSync(path.join(dir, "README.md")));
     assert.ok(!fs.readdirSync(dir).some(name => name.startsWith("Plugins.")));
     const config = fs.readFileSync(path.join(dir, filename), "utf8");
-    const rules = config.split("\n").filter(line => line.includes("https://cdn.jsdelivr.net/gh/fansys/scripts@main/") && !line.startsWith("#"));
+    const rules = config.split("\n").filter(line => line.includes("https://cdn.jsdelivr.net/gh/fansys/scripts@") && !line.startsWith("#"));
     assert.equal(rules.length, platform === "Loon" ? 3 : 2);
     const reportRule = rules.find(line => line.includes("g1-sku-report.js"));
     const collectRule = rules.find(line => line.includes("g1-acq.js"));
@@ -225,7 +225,10 @@ for (const [platform, filename, pattern] of configs) {
     if (platform === "Loon") {
       assert.match(reportRule, /\$\{request\.method\} == "POST"/);
       const readRule = rules.find(line => line.includes('tag="G1 SKU Report"'));
-      assert.match(readRule, /\$\{request\.method\} != "POST"/);
+      assert.ok(rules.indexOf(reportRule) < rules.indexOf(readRule));
+      assert.doesNotMatch(readRule, /request\.method/);
+      const refs = rules.map(line => line.match(/scripts@([a-f0-9]{40})\//)?.[1]);
+      assert.ok(refs.every(ref => ref && ref === refs[0]));
       assert.doesNotMatch(readRule, /requires_body=true/);
       assert.equal(pattern(readRule), pattern(reportRule));
     }
@@ -243,7 +246,7 @@ for (const [platform, filename, pattern] of configs) {
       assert.equal(reports.test(url), false);
       assert.equal(collects.test(url), false);
     }
-    for (const match of config.matchAll(/https:\/\/cdn\.jsdelivr\.net\/gh\/fansys\/scripts@main\/([^\s",]+)/g)) {
+    for (const match of config.matchAll(/https:\/\/cdn\.jsdelivr\.net\/gh\/fansys\/scripts@(?:main|[a-f0-9]{40})\/([^\s",]+)/g)) {
       assert.ok(fs.existsSync(path.join(ROOT, match[1])), `missing script: ${match[1]}`);
     }
     assert.match(config, /hostname\s*=.*one\.google\.com/);

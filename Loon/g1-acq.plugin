@@ -10,9 +10,10 @@
 AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 
 [Script]
-request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ && ${request.method} == "POST" then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-sku-report.js") with requires_body=true, tag="G1 SKU Report POST"
-request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ && ${request.method} != "POST" then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-sku-report.js") with tag="G1 SKU Report"
-response if ${url} ~= /^https:\/\/one\.google\.com\// then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-acq.js") with requires_body=true, tag="G1 ACQ"
+# POST 规则在前，其余报告请求使用下一条规则。
+request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ && ${request.method} == "POST" then script("https://cdn.jsdelivr.net/gh/fansys/scripts@d2f9a1805dfdab0ec89ef0e97dc30bc6bb116feb/Scripts/g1-acq/g1-sku-report.js") with requires_body=true, tag="G1 SKU Report POST"
+request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ then script("https://cdn.jsdelivr.net/gh/fansys/scripts@d2f9a1805dfdab0ec89ef0e97dc30bc6bb116feb/Scripts/g1-acq/g1-sku-report.js") with tag="G1 SKU Report"
+response if ${url} ~= /^https:\/\/one\.google\.com\// then script("https://cdn.jsdelivr.net/gh/fansys/scripts@d2f9a1805dfdab0ec89ef0e97dc30bc6bb116feb/Scripts/g1-acq/g1-acq.js") with requires_body=true, tag="G1 ACQ"
 
 [Mitm]
 hostname = one.google.com
