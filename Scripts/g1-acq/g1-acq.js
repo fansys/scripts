@@ -1,5 +1,6 @@
 /* Upstream: https://github.com/crhywun/g1-acq/tree/v7.12.0 (crhywun).
  * Adapted for Quantumult X, Loon and Shadowrocket.
+ * Last updated: 2026-11-26 22:53 UTC+08:00
  */
 "use strict";
 
