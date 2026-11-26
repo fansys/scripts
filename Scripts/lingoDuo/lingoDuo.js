@@ -1,4 +1,5 @@
 /*
+ * Last updated: 2026-11-26 23:12
  * lingoDuo — Quantumult X / Loon / Shadowrocket.
  * Author: TAKAGIVEGETA.
  * Upstream: https://github.com/TAKAGIVEGETA/MyScripts/tree/main/lingoDuo

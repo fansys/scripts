@@ -1,4 +1,5 @@
 /*
+ * Last updated: 2026-11-26 23:12
  * HongGuo Lite Plus local ad responses for Quantumult X / Loon / Shadowrocket.
  * Upstream author: Minis. Copyright (c) 2026 k6nfmm7dbr-commits.
  * Source: https://github.com/k6nfmm7dbr-commits/hongguo-lite/blob/main/surge/hongguo-lite-plus.sgmodule

@@ -28,7 +28,7 @@
 - [`Scripts`](./Scripts/README.md) 是公共脚本目录，每个插件使用独立子目录，插件相关文件全部放在对应目录中。
 - [`QuantumultX`](./QuantumultX/README.md)、[`Loon`](./Loon/README.md)、[`Shadowrocket`](./Shadowrocket/README.md) 是平台订阅目录。每个插件在每个平台各维护一个独立订阅配置，引用 `Scripts` 下的插件 JavaScript 文件。
 - 根目录、`Scripts`、每个插件目录和每个平台订阅目录均维护各自的 `README.md`。
-- 订阅、脚本及图标通过 jsDelivr 提供。
+- 订阅、脚本及图标通过 jsDelivr 的 `@main` 地址提供。
 - 插件目录的 README 说明插件用途、文件作用、配置方式及使用方法；平台目录的 README 说明对应订阅文件的用途和导入方式。
 
 ## 缓存清理

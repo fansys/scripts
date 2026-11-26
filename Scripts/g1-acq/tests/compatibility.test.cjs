@@ -1,3 +1,4 @@
+// Last updated: 2026-11-26 23:12
 "use strict";
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -214,6 +215,7 @@ for (const [platform, filename, pattern] of configs) {
     const config = fs.readFileSync(path.join(dir, filename), "utf8");
     const rules = config.split("\n").filter(line => line.includes("https://cdn.jsdelivr.net/gh/fansys/scripts@") && !line.startsWith("#"));
     assert.equal(rules.length, platform === "Loon" ? 3 : 2);
+    assert.doesNotMatch(config, /cdn\.jsdelivr\.net\/gh\/fansys\/scripts@(?!main\/)/);
     const reportRule = rules.find(line => line.includes("g1-sku-report.js"));
     const collectRule = rules.find(line => line.includes("g1-acq.js"));
     const reportBodyOption = {
@@ -227,8 +229,6 @@ for (const [platform, filename, pattern] of configs) {
       const readRule = rules.find(line => line.includes('tag="G1 SKU Report"'));
       assert.ok(rules.indexOf(reportRule) < rules.indexOf(readRule));
       assert.doesNotMatch(readRule, /request\.method/);
-      const refs = rules.map(line => line.match(/scripts@([a-f0-9]{40})\//)?.[1]);
-      assert.ok(refs.every(ref => ref && ref === refs[0]));
       assert.doesNotMatch(readRule, /requires_body=true/);
       assert.equal(pattern(readRule), pattern(reportRule));
     }
@@ -246,7 +246,7 @@ for (const [platform, filename, pattern] of configs) {
       assert.equal(reports.test(url), false);
       assert.equal(collects.test(url), false);
     }
-    for (const match of config.matchAll(/https:\/\/cdn\.jsdelivr\.net\/gh\/fansys\/scripts@(?:main|[a-f0-9]{40})\/([^\s",]+)/g)) {
+    for (const match of config.matchAll(/https:\/\/cdn\.jsdelivr\.net\/gh\/fansys\/scripts@main\/([^\s",]+)/g)) {
       assert.ok(fs.existsSync(path.join(ROOT, match[1])), `missing script: ${match[1]}`);
     }
     assert.match(config, /hostname\s*=.*one\.google\.com/);

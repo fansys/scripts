@@ -1,6 +1,6 @@
 #!name=G1 ACQ
 #!icon=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/icon.png
-#!desc=G1 ACQ：Google One 原始 SKU 采集、本机 SKU 映射管理、预制模板与 JSON 导出
+#!desc=G1 ACQ：Google One 原始 SKU 采集、本机 SKU 映射管理、预制模板与 JSON 导出（更新于 2026-11-26 23:12）
 #!system=ios
 # 来源：https://github.com/crhywun/g1-acq/tree/v7.12.0
 

@@ -4,7 +4,7 @@
 #!author=crhywun
 #!homepage=https://github.com/fansys/scripts
 #!loon_version=3.5.1(983)
-#!date=2026-11-26 22:53 UTC+08:00
+#!date=2026-11-26 23:12
 # 来源：https://github.com/crhywun/g1-acq/tree/v7.12.0
 
 [Rule]
@@ -12,9 +12,9 @@ AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT
 
 [Script]
 # POST 规则在前，其余报告请求使用下一条规则。
-request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ && ${request.method} == "POST" then script("https://cdn.jsdelivr.net/gh/fansys/scripts@28e6d392e2f36fe6559db57a859c96f3becd8d60/Scripts/g1-acq/g1-sku-report.js") with requires_body=true, tag="G1 SKU Report POST"
-request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ then script("https://cdn.jsdelivr.net/gh/fansys/scripts@28e6d392e2f36fe6559db57a859c96f3becd8d60/Scripts/g1-acq/g1-sku-report.js") with tag="G1 SKU Report"
-response if ${url} ~= /^https:\/\/one\.google\.com\// then script("https://cdn.jsdelivr.net/gh/fansys/scripts@28e6d392e2f36fe6559db57a859c96f3becd8d60/Scripts/g1-acq/g1-acq.js") with requires_body=true, tag="G1 ACQ"
+request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ && ${request.method} == "POST" then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-sku-report.js") with requires_body=true, tag="G1 SKU Report POST"
+request if ${url} ~= /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$/ then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-sku-report.js") with tag="G1 SKU Report"
+response if ${url} ~= /^https:\/\/one\.google\.com\// then script("https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-acq.js") with requires_body=true, tag="G1 ACQ"
 
 [Mitm]
 hostname = one.google.com

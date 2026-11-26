@@ -1,4 +1,5 @@
 /*
+ * Last updated: 2026-11-26 23:12
  * Author: lhie1, NobyDa.
  * Source: https://github.com/NobyDa/Script/blob/master/QuantumultX/Rewrite_lhie1.conf
  * SPDX-License-Identifier: GPL-3.0-only

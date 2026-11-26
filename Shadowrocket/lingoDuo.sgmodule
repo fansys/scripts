@@ -1,6 +1,6 @@
 #!name=lingoDuo
 #!icon=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/lingoDuo/icon.png
-#!desc=Duolingo iOS 会员字段改写；可选经验倍数、关卡解锁、挑战时长和直接通关
+#!desc=Duolingo iOS 会员字段改写；可选经验倍数、关卡解锁、挑战时长和直接通关（更新于 2026-11-26 23:12）
 #!author=TAKAGIVEGETA
 #!system=ios
 # 来源：https://github.com/TAKAGIVEGETA/MyScripts/tree/main/lingoDuo

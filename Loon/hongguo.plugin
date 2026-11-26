@@ -7,6 +7,7 @@
 # Copyright (c) 2026 k6nfmm7dbr-commits
 # SPDX-License-Identifier: MIT；许可证：Scripts/hongguo/LICENSE
 #!loon_version=3.5.1(983)
+#!date=2026-11-26 23:12
 
 [Rule]
 DOMAIN-KEYWORD,pangolin,REJECT

@@ -1,4 +1,5 @@
 /*
+ * Last updated: 2026-11-26 23:12
  * Emby local registration responses for Quantumult X, Loon and Shadowrocket.
  * Upstream author: qiangxinglin.
  * https://github.com/qiangxinglin/Emby/blob/main/scripts/emby.js
