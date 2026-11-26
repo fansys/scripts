@@ -81,7 +81,7 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     run(platform, "g1-acq.js", { body, state });
     const before = JSON.parse(report(platform, state).body);
     assert.equal(before.configuredMode, "discount75");
-    assert.equal(before.reportVersion, "v7.10.0");
+    assert.equal(before.reportVersion, "v7.12.0");
 
     function submit(fields, origin = "https://one.google.com") {
       const result = run(platform, "g1-sku-report.js", {
@@ -103,7 +103,11 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     assert.deepEqual(updated.test, before.test);
     assert.equal(run(platform, "g1-acq.js", { body, state }).body, '"g1.ios.30tb.m"');
     assert.match(String(submit(form).status), /409/);
-    assert.match(String(submit({ action: "reset", revision: updated.mappingConfig.revision }).status), /303/);
+    assert.match(String(submit({ action: "preset", preset: "pro-1yuan", revision: updated.mappingConfig.revision }).status), /303/);
+    const pro = JSON.parse(report(platform, state).body);
+    assert.equal(run(platform, "g1-acq.js", { body: '"g1.ios.2tb.monthly"', state }).body,
+      '"com.google.gemini.2tb.ai.m.3month_ip_99p"');
+    assert.match(String(submit({ action: "reset", revision: pro.mappingConfig.revision }).status), /303/);
     assert.equal(run(platform, "g1-acq.js", { body, state }).body, '"g1.ai.ultra.3months_ip_75p.acq"');
   });
 
@@ -198,7 +202,7 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
 
 const configs = [
   ["QuantumultX", "g1-acq.conf", line => line.split(" url ")[0]],
-  ["Loon", "g1-acq.plugin", line => line.match(/~= \/(.+)\/ then script/)[1]],
+  ["Loon", "g1-acq.plugin", line => line.match(/~= \/(.+?)\/ (?:&&|then)/)[1]],
   ["Shadowrocket", "g1-acq.sgmodule", line => line.match(/pattern=([^,]+)/)[1]]
 ];
 for (const [platform, filename, pattern] of configs) {
@@ -209,7 +213,7 @@ for (const [platform, filename, pattern] of configs) {
     assert.ok(!fs.readdirSync(dir).some(name => name.startsWith("Plugins.")));
     const config = fs.readFileSync(path.join(dir, filename), "utf8");
     const rules = config.split("\n").filter(line => line.includes("https://cdn.jsdelivr.net/gh/fansys/scripts@main/") && !line.startsWith("#"));
-    assert.equal(rules.length, 2);
+    assert.equal(rules.length, platform === "Loon" ? 3 : 2);
     const reportRule = rules.find(line => line.includes("g1-sku-report.js"));
     const collectRule = rules.find(line => line.includes("g1-acq.js"));
     const reportBodyOption = {
@@ -218,6 +222,13 @@ for (const [platform, filename, pattern] of configs) {
       Shadowrocket: /requires-body=1,max-size=0/
     }[platform];
     assert.match(reportRule, reportBodyOption);
+    if (platform === "Loon") {
+      assert.match(reportRule, /\$\{request\.method\} == "POST"/);
+      const readRule = rules.find(line => line.includes('tag="G1 SKU Report"'));
+      assert.match(readRule, /\$\{request\.method\} != "POST"/);
+      assert.doesNotMatch(readRule, /requires_body=true/);
+      assert.equal(pattern(readRule), pattern(reportRule));
+    }
     const reports = new RegExp(pattern(reportRule));
     const collects = new RegExp(pattern(collectRule));
     for (const url of [REPORT, REPORT + "/", REPORT + "?format=json", REPORT + "/?format=json"]) {

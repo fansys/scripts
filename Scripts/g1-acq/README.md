@@ -2,7 +2,7 @@
 
 Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantumult X、Loon 和 Shadowrocket，并提供本机 HTML 报告、最近 10 次响应诊断及 JSON 导出。
 
-来源：[crhywun/g1-acq](https://github.com/crhywun/g1-acq)，引入版本：[v7.10.0](https://github.com/crhywun/g1-acq/tree/v7.10.0)。保留上游的采集与商品映射逻辑，新增 Quantumult X 存储接口和本地报告响应格式适配；Loon、Shadowrocket 使用原生 `$persistentStore` 和请求阶段本地响应。本地存储键沿用上游，已有同应用记录可继续读取；三个应用的存储相互独立。
+来源：[crhywun/g1-acq](https://github.com/crhywun/g1-acq)，引入版本：[v7.12.0](https://github.com/crhywun/g1-acq/tree/v7.12.0)。保留上游的采集与商品映射逻辑，新增 Quantumult X 存储接口和本地报告响应格式适配；Loon、Shadowrocket 使用原生 `$persistentStore` 和请求阶段本地响应。本地存储键沿用上游，已有同应用记录可继续读取；三个应用的存储相互独立。
 
 ## 文件
 
@@ -33,7 +33,7 @@ Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantum
 | `g1.ios.20tb.m.v2` | `g1.20tb.3months_ip_75p.acq` |
 | `g1.ios.30tb.ai.pro.m` | `g1.ai.ultra.3months_ip_75p.acq` |
 
-本机报告提供土区旧 30TB、Ultra 三个月 75p 和 2TB／Pro 12 个月 90p 三套预制模板，也可以手动添加、编辑、启停或删除映射。配置保存在 `g1.sku.mappings.v1`，最多 30 条。应用模板会合并并启用模板中的规则。保存后进入 `custom` 模式，并在下一次匹配的 `/ai?` 响应生效。恢复默认会重新启用上表的映射。
+本机报告提供1 元开 Pro、土区 20TB、土区 30TB、Ultra 三个月 75p 和 2TB／Pro 12 个月 90p 五套预制模板，也可以手动添加、编辑、启停或删除映射。配置保存在 `g1.sku.mappings.v1`，最多 30 条。应用模板会合并并启用模板中的规则。保存后进入 `custom` 模式，并在下一次匹配的 `/ai?` 响应生效。恢复默认会重新启用上表的映射。
 
 商品名称、权益、实际金额与扣款周期以 App Store 购买面板和 Google One 账户为准。
 
