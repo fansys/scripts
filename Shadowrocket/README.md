@@ -23,13 +23,7 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/g1-acq.sgmodule
 3. 更新模块及脚本，重新连接，再从 Google App 打开 Google One 方案页。
 4. 在 Safari 打开 `https://one.google.com/g1-sku-report` 查看本机报告。
 
-若请求使用 HTTP/3 而未进入脚本，可参考上游，在当前配置的 `[Rule]` 中添加以下规则并重新连接：
-
-```ini
-AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
-```
-
-此规则会影响全部 UDP 443 流量，本仓库模块不自动添加它。
+模块同步上游的 UDP 443 拒绝规则，使支持回退的 HTTP/3 请求改走 TCP。此规则适用于全部 UDP 443 流量。
 
 ## lingoDuo
 

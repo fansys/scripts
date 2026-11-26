@@ -23,7 +23,7 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/g1-acq.plugin
 3. 更新插件及脚本，重新连接，再从 Google App 打开 Google One 方案页。
 4. 在 Safari 打开 `https://one.google.com/g1-sku-report` 查看本机报告。
 
-配置采用 [Loon 官方新版 Script 语法](https://nsloon.app/docs/Script/script_v2/)。若请求使用 HTTP/3 而未进入脚本，需在当前配置中关闭或拦截 QUIC 后重新连接；插件只配置脚本与解密域名。
+配置采用 [Loon 官方新版 Script 语法](https://nsloon.app/docs/Script/script_v2/)。插件的 `[Rule]` 使用 Loon 的 `REJECT` 拒绝所有目标端口为 443 的 UDP 流量，使支持回退的请求改走 TCP。
 
 ## lingoDuo
 

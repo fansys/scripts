@@ -123,7 +123,7 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     assert.equal(state[RECORD], undefined);
     for (const url of [REPORT, REPORT + "/?format=json", "https://one.google.com.evil.test/ai?x", "http://one.google.com/ai?x"]) {
       const untouched = {};
-      assert.deepEqual(run(platform, "g1-acq.js", { url, body: '"g1.ios.2tb.monthly"', state: untouched }), {});
+      assert.deepEqual(run(platform, "g1-acq.js", { url, body, state: untouched }), platform === "QuantumultX" ? { body } : {});
       assert.deepEqual(untouched, {});
     }
   });
@@ -222,7 +222,7 @@ for (const [platform, filename, pattern] of configs) {
     const collects = new RegExp(pattern(collectRule));
     for (const url of [REPORT, REPORT + "/", REPORT + "?format=json", REPORT + "/?format=json"]) {
       assert.equal(reports.test(url), true);
-      assert.equal(collects.test(url), false, "report must not be collected");
+      assert.equal(collects.test(url), true, "upstream response rule covers the host; the script skips the report");
     }
     for (const url of [AI, "https://one.google.com/", "https://one.google.com/plans", REPORT + "-other"]) {
       assert.equal(collects.test(url), true);
@@ -236,6 +236,11 @@ for (const [platform, filename, pattern] of configs) {
       assert.ok(fs.existsSync(path.join(ROOT, match[1])), `missing script: ${match[1]}`);
     }
     assert.match(config, /hostname\s*=.*one\.google\.com/);
-    if (platform === "QuantumultX") assert.doesNotMatch(config, /^\[/m, "remote rewrite uses native snippet format");
+    if (platform === "QuantumultX") {
+      assert.doesNotMatch(config, /^\[/m, "remote rewrite uses native snippet format");
+    } else {
+      const rule = platform === "Loon" ? "REJECT" : "REJECT-NO-DROP";
+      assert.ok(config.split("\n").includes("AND,((PROTOCOL,UDP),(DEST-PORT,443))," + rule));
+    }
   });
 }

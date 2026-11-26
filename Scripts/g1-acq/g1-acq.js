@@ -313,9 +313,11 @@ function createG1MappingConfig(store) {
   var MAX_EVENT_COUNT = 9007199254740991;
   var url = typeof $request === "object" && $request ? $request.url : "";
 
+  var body = typeof $response === "object" && $response ? $response.body : undefined;
+
   if (typeof url !== "string" || !/^https:\/\/one\.google\.com\//.test(url) ||
       /^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?|$)/.test(url)) {
-    $done({});
+    finish(body, false);
     return;
   }
 
@@ -326,7 +328,6 @@ function createG1MappingConfig(store) {
   console.log("[g1-acq] " + VERSION + " mappingStatus=" + mappingConfig.status +
     " mappingRevision=" + mappingConfig.revision + " mode=" + MODE);
 
-  var body = typeof $response === "object" && $response ? $response.body : undefined;
   try {
     collectOriginalSkus(body);
   } catch (error) {

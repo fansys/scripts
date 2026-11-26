@@ -29,7 +29,7 @@ https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/g1-acq.conf
 https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/g1-acq.conf, tag=G1 ACQ, enabled=true
 ```
 
-若请求使用 QUIC 而未进入重写，可在现有 `[general]` 的 `udp_drop_list` 中追加 `QUIC`，保留已有值。该设置影响全部 QUIC 流量，订阅不会自动修改它。参见 [Quantumult X 官方配置示例](https://github.com/crossutility/Quantumult-X/blob/master/sample.conf)。
+在主配置的 `[general]` 中将 `443` 加入 `udp_drop_list`，保留原有条目。若已设置 `udp_whitelist`，其范围需包含 `443`，让该端口能由 `udp_drop_list` 处理。此设置适用于全部 UDP 443 流量。参见 [Quantumult X 官方配置示例](https://github.com/crossutility/Quantumult-X/blob/master/sample.conf)。
 
 ## lingoDuo
 

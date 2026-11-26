@@ -47,7 +47,7 @@ Google One（iOS）原始 SKU 采集与商品编号改写工具，支持 Quantum
 
 报告地址由当前应用在本机拦截生成，需保持对应平台运行。`?clear=1` 会手动清空本工具的 `g1.sku.scan.v1` 和 `g1.pro.annual.test.v1` 两个存储键，映射配置继续保留。
 
-本仓库订阅仅声明脚本与解密域名，未自动引入上游的全局 UDP 443 拦截规则。若连接使用 HTTP/3 导致未命中脚本，按对应平台 README 处理 QUIC 并重新连接。
+Shadowrocket 和 Loon 的订阅包含 UDP 443 拒绝规则，作用于全部 UDP 443 流量。Quantumult X 的 UDP 设置需合并到主配置，步骤见 [Quantumult X 安装说明](../../QuantumultX/README.md#g1-acq)。更新配置后重新连接，再打开 Google One 方案页。
 
 报告显示 Google 页面或 404 时，检查插件开关、证书信任、解密域名及 VPN 连接；计数没有增长时检查缓存、QUIC 及日志中的 `saved=no`。重复 SKU 只增加次数，不会增加清单条数。
 

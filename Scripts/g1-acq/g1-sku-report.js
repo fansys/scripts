@@ -354,7 +354,7 @@ function createG1MappingConfig(store) {
     var fetchSite = requestHeader("sec-fetch-site");
     if (typeof origin !== "string" || origin.toLowerCase() !== "https://one.google.com" ||
         (typeof fetchSite !== "undefined" && (typeof fetchSite !== "string" || fetchSite.toLowerCase() !== "same-origin"))) {
-      problem(403, "请从本机 SKU 管理页提交修改，并保持代理客户端的 G1 ACQ 订阅开启。");
+      problem(403, "请从本机 SKU 管理页提交修改，并保持小火箭模块开启。");
       return;
     }
     var contentType = requestHeader("content-type");
@@ -794,7 +794,7 @@ function createG1MappingConfig(store) {
     "<p class=badge>本机脚本已接管 · " + VERSION + "</p>",
     "<p><strong>当前报告入口：" + modeName(report.configuredMode) + "</strong></p>",
     "<nav class=actions aria-label=报告操作><form method=get action=\"" + ROOT + "\"><button type=submit name=format value=json>导出 JSON</button></form><a href=\"" + ROOT + "\">刷新报告</a></nav>",
-    "<p class=note>此页由当前设备上的代理客户端生成；地址栏沿用 one.google.com，映射配置与采集记录保存在当前设备。</p>",
+    "<p class=note>此页由当前设备的 Shadowrocket 生成；地址栏沿用 one.google.com，映射配置与采集记录保存在当前设备。</p>",
     "<p class=note>保持一个 G1 ACQ 模块开启即可：先采集原始响应中的编号，再按已保存的规则改写。</p>",
     actionError ? "<p class=error role=alert>" + escape(actionError) + "</p>" : "",
     noticeText ? "<p class=success role=status>" + escape(noticeText) + "</p>" : "",

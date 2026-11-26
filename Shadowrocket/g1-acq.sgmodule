@@ -4,9 +4,13 @@
 #!system=ios
 # 来源：https://github.com/crhywun/g1-acq/tree/v7.10.0
 
+[Rule]
+# 拦截 UDP 443，促使支持回退的 HTTP/3 请求改走 TCP。
+AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
+
 [Script]
-g1-sku-report = type=http-request,pattern=^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-sku-report.js,timeout=20
-g1-acq = type=http-response,pattern=^https:\/\/one\.google\.com\/(?!g1-sku-report\/?(?:\?|$)),requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-acq.js,timeout=20
+g1-acq = type=http-response,pattern=^https:\/\/one\.google\.com\/,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-acq.js
+g1-sku-report = type=http-request,pattern=^https:\/\/one\.google\.com\/g1-sku-report\/?(?:\?.*)?$,requires-body=1,max-size=0,script-path=https://cdn.jsdelivr.net/gh/fansys/scripts@main/Scripts/g1-acq/g1-sku-report.js
 
 [MITM]
 hostname = %APPEND% one.google.com
