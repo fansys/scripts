@@ -6,7 +6,7 @@
 
 | 插件 | 功能 | Quantumult X | Loon | Shadowrocket |
 | --- | --- | --- | --- | --- |
-| [G1 ACQ](./Scripts/g1-acq/README.md) | Google One SKU 采集、三档商品编号改写、本机报告与 JSON 导出 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/g1-acq.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/g1-acq.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/g1-acq.sgmodule) |
+| [G1 ACQ](./Scripts/g1-acq/README.md) | Google One SKU 采集、本机 SKU 映射管理、预制模板与 JSON 导出 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/g1-acq.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/g1-acq.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/g1-acq.sgmodule) |
 | [lingoDuo](./Scripts/lingoDuo/README.md) | Duolingo 会员字段改写及可选增强功能 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/lingoDuo.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/lingoDuo.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/lingoDuo.sgmodule) |
 | [Emby](./Scripts/emby/README.md) | 五个注册相关接口的本地 JSON 响应 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/emby.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/emby.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/emby.sgmodule) |
 | [Rewrite_lhie1](./Scripts/Rewrite_lhie1/README.md) | 451 条历史重写规则：重定向、请求头改写及广告请求拒绝 | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/QuantumultX/Rewrite_lhie1.conf) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Loon/Rewrite_lhie1.plugin) | [订阅](https://cdn.jsdelivr.net/gh/fansys/scripts@main/Shadowrocket/Rewrite_lhie1.sgmodule) |

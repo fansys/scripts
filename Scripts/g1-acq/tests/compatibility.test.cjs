@@ -10,16 +10,17 @@ const PLUGIN = path.resolve(__dirname, "..");
 const AI = "https://one.google.com/ai?entry=test";
 const REPORT = "https://one.google.com/g1-sku-report";
 const SCAN = "g1.sku.scan.v1";
+const MAPPINGS = "g1.sku.mappings.v1";
 const RECORD = "g1.pro.annual.test.v1";
 const TARGET = "g1.2tb.ai.12months_ip_90p";
 const sources = Object.fromEntries(["g1-acq.js", "g1-sku-report.js"].map(name =>
   [name, fs.readFileSync(path.join(PLUGIN, name), "utf8")]));
 
-function run(platform, name, { url = AI, body, state = {}, storage = "ok" } = {}) {
+function run(platform, name, { url = AI, body, method = "GET", requestBody, headers = {}, state = {}, storage = "ok" } = {}) {
   let result;
   let completions = 0;
   const context = {
-    $request: { url },
+    $request: { url, method, body: requestBody, headers },
     console: { log() {} },
     $done(value) { result = value; completions += 1; }
   };
@@ -34,6 +35,7 @@ function run(platform, name, { url = AI, body, state = {}, storage = "ok" } = {}
     state[key] = value;
     return true;
   };
+  if (platform === "QuantumultX") context.$task = {};
   if (storage !== "missing") {
     if (platform === "QuantumultX") context.$prefs = { valueForKey: read, setValueForKey: write };
     else context.$persistentStore = { read, write };
@@ -47,7 +49,7 @@ function run(platform, name, { url = AI, body, state = {}, storage = "ok" } = {}
 
 function report(platform, state, query = "?format=json", storage = "ok") {
   const result = run(platform, "g1-sku-report.js", { url: REPORT + query, state, storage });
-  if (platform === "QuantumultX" && storage !== "missing") {
+  if (platform === "QuantumultX") {
     assert.equal(result.status, "HTTP/1.1 200 OK");
     assert.equal(result.response, undefined);
     return result;
@@ -61,7 +63,7 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     const state = {};
     const body = JSON.stringify(["g1.ios.2tb.monthly", "g1.ios.20tb.m.v2", "g1.ios.30tb.ai.pro.m"]);
     const result = run(platform, "g1-acq.js", { body, state });
-    assert.deepEqual(JSON.parse(result.body), [TARGET, "g1.20tb.3months_ip_90p.acq", "g1.ai.ultra.3months_ip_90p.acq"]);
+    assert.deepEqual(JSON.parse(result.body), [TARGET, "g1.20tb.3months_ip_75p.acq", "g1.ai.ultra.3months_ip_75p.acq"]);
     const response = report(platform, state);
     assert.match(response.headers["Content-Type"], /application\/json/);
     const data = JSON.parse(response.body);
@@ -73,29 +75,49 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     assert.equal(data.scan.recentResponses[0].path, "/ai");
   });
 
-  test(`${platform}: 20TB/30TB fall back independently and prefer observed 90p`, () => {
-    const body = JSON.stringify(["g1.ios.20tb.m.v2", "g1.ios.30tb.ai.pro.m",
-      "g1.20tb.3months_ip_75p.acq", "g1.ai.ultra.3months_ip_75p.acq", "g1.ai.ultra.3months_ip_90p.acq"]);
+  test(`${platform}: presets apply on the next response and restore returns to defaults`, () => {
     const state = {};
-    const result = JSON.parse(run(platform, "g1-acq.js", { body, state }).body);
-    assert.equal(result[0], "g1.20tb.3months_ip_75p.acq");
-    assert.equal(result[1], "g1.ai.ultra.3months_ip_90p.acq");
-    const record = JSON.parse(state[RECORD]);
-    assert.equal(record.annualHitCount, 0);
-    assert.equal(record.matchedFrom[0].fallback, true);
-    assert.equal(record.matchedFrom[1].fallback, false);
+    const body = '"g1.ios.30tb.ai.pro.m"';
+    run(platform, "g1-acq.js", { body, state });
+    const before = JSON.parse(report(platform, state).body);
+    assert.equal(before.configuredMode, "discount75");
+    assert.equal(before.reportVersion, "v7.10.0");
+
+    function submit(fields, origin = "https://one.google.com") {
+      const result = run(platform, "g1-sku-report.js", {
+        url: REPORT, state, method: "POST", requestBody: new URLSearchParams(fields).toString(),
+        headers: { Origin: origin, "Content-Type": "application/x-www-form-urlencoded" }
+      });
+      return result.response || result;
+    }
+
+    const form = { action: "preset", preset: "tr-ultra-30tb", revision: before.mappingConfig.revision };
+    assert.match(String(submit(form, "https://example.test").status), /403/);
+    assert.equal(state[MAPPINGS], undefined);
+    const saved = submit(form);
+    assert.equal(saved.status, platform === "QuantumultX" ? "HTTP/1.1 303 See Other" : 303);
+    assert.equal(saved.headers.Location, REPORT + "?notice=preset");
+    const updated = JSON.parse(report(platform, state).body);
+    assert.equal(updated.configuredMode, "custom");
+    assert.equal(updated.scan.scannedResponses, before.scan.scannedResponses);
+    assert.deepEqual(updated.test, before.test);
+    assert.equal(run(platform, "g1-acq.js", { body, state }).body, '"g1.ios.30tb.m"');
+    assert.match(String(submit(form).status), /409/);
+    assert.match(String(submit({ action: "reset", revision: updated.mappingConfig.revision }).status), /303/);
+    assert.equal(run(platform, "g1-acq.js", { body, state }).body, '"g1.ai.ultra.3months_ip_75p.acq"');
   });
 
   test(`${platform}: rewrite complete tokens only and preserve unmatched bodies`, () => {
     for (const body of ["no products", '"g1.ios.2tb."', '"g1.ios.20tb.m.v2.extra"',
       '"xg1.ios.2tb.monthly"', '"g1.ios.30tb.ai.pro.m.extra"']) {
-      assert.deepEqual(run(platform, "g1-acq.js", { body }), {});
+      assert.deepEqual(run(platform, "g1-acq.js", { body }), platform === "QuantumultX" ? { body } : {});
     }
   });
 
   test(`${platform}: collect other pages without rewriting; reject unrelated origins and report`, () => {
     const state = {};
-    assert.deepEqual(run(platform, "g1-acq.js", { url: "https://one.google.com/plans?secret=1", body: '"g1.ios.2tb.monthly"', state }), {});
+    const body = '"g1.ios.2tb.monthly"';
+    assert.deepEqual(run(platform, "g1-acq.js", { url: "https://one.google.com/plans?secret=1", body, state }), platform === "QuantumultX" ? { body } : {});
     assert.equal(JSON.parse(state[SCAN]).skus.length, 1);
     assert.equal(JSON.parse(state[SCAN]).recentResponses[0].path, "/plans");
     assert.equal(state[RECORD], undefined);
@@ -130,13 +152,15 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     assert.equal(scan.recentResponses[0].omittedCount, 2);
   });
 
-  test(`${platform}: non-text and failed storage do not break completion or rewriting`, () => {
+  test(`${platform}: non-text and unavailable mapping storage preserve the response`, () => {
     const state = {};
     assert.deepEqual(run(platform, "g1-acq.js", { body: new Uint8Array([1, 2]), state }), {});
     assert.equal(JSON.parse(state[SCAN]).nonTextResponses, 1);
-    for (const storage of ["missing", "throws", "fails"]) {
-      assert.equal(run(platform, "g1-acq.js", { body: '"g1.ios.2tb.monthly"', storage }).body, `"${TARGET}"`);
+    const body = '"g1.ios.2tb.monthly"';
+    for (const storage of ["missing", "throws"]) {
+      assert.deepEqual(run(platform, "g1-acq.js", { body, storage }), platform === "QuantumultX" ? { body } : {});
     }
+    assert.equal(run(platform, "g1-acq.js", { body, storage: "fails" }).body, `"${TARGET}"`);
   });
 
   test(`${platform}: HTML report, JSON download and clear only the plugin's keys`, () => {
@@ -147,7 +171,12 @@ for (const platform of ["QuantumultX", "Loon", "Shadowrocket"]) {
     assert.match(html.body, /导出 JSON/);
     assert.equal(html.headers["Cache-Control"], "no-store");
     assert.match(report(platform, state).headers["Content-Disposition"], /g1-sku-report.json/);
-    const cleared = JSON.parse(report(platform, state, "/?clear=1&format=json").body);
+    state[MAPPINGS] = JSON.stringify({ schemaVersion: 1, revision: "custom-test", updatedAt: "2026-11-23T07:40:06.325Z",
+      customized: true, rules: [] });
+    const mappings = state[MAPPINGS];
+    report(platform, state, "/?clear=1");
+    const cleared = JSON.parse(report(platform, state).body);
+    assert.equal(state[MAPPINGS], mappings);
     assert.equal(cleared.scan.skus.length, 0);
     assert.equal(cleared.test.hitCount, 0);
     assert.equal(state.unrelated, "keep");
@@ -183,6 +212,12 @@ for (const [platform, filename, pattern] of configs) {
     assert.equal(rules.length, 2);
     const reportRule = rules.find(line => line.includes("g1-sku-report.js"));
     const collectRule = rules.find(line => line.includes("g1-acq.js"));
+    const reportBodyOption = {
+      QuantumultX: / url script-analyze-echo-response /,
+      Loon: /requires_body=true/,
+      Shadowrocket: /requires-body=1,max-size=0/
+    }[platform];
+    assert.match(reportRule, reportBodyOption);
     const reports = new RegExp(pattern(reportRule));
     const collects = new RegExp(pattern(collectRule));
     for (const url of [REPORT, REPORT + "/", REPORT + "?format=json", REPORT + "/?format=json"]) {
